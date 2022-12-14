@@ -5,7 +5,6 @@ import {
   Button,
   Container,
   Center,
-  Spinner,
 } from "@chakra-ui/react";
 import axios from "axios";
 import Head from "next/head";
