@@ -12,7 +12,7 @@ export default async function handler(
 ) {
   const completion = await openai.createCompletion({
     model: "text-davinci-003",
-    prompt: `以下のコードをレビューしてください。もし問題点がある場合は教えて下さい。また、もっと良い書き方がある場合は教えて下さい。${req.body.code}`,
+    prompt: `以下のコードをレビューしてください。もし問題点がある場合は教えて下さい。また、より良い書き方がある場合は教えて下さい。${req.body.code}`,
     temperature: 0.5,
     max_tokens: 2048,
   });
