@@ -14,6 +14,7 @@ import Image from "next/image";
 import { RiSendPlane2Fill } from "react-icons/ri";
 import axios from "axios";
 import { BeatLoader } from "react-spinners";
+import { useTranslate } from "../hooks/useTranslate";
 
 type Message = {
   from: "human" | "ai";
@@ -22,12 +23,13 @@ type Message = {
 export const ChatBot: React.FC<{ isChatShown: boolean }> = ({
   isChatShown,
 }) => {
+  const t = useTranslate();
   const [inputMessage, setInputMessage] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [sentMessages, setSentMessages] = useState<Message[]>([
     {
       from: "ai",
-      message: "こんにちは、AIです。わからないことがあれば聞いてください。",
+      message: t.greeting,
     },
   ]);
   const sendToAi = async () => {
@@ -52,7 +54,7 @@ export const ChatBot: React.FC<{ isChatShown: boolean }> = ({
     );
   };
 
-  //常にメッセージの一番下にカーソルが置かれるように
+  // Always place the cursor at the bottom of the message
   useEffect(() => {
     const floorBoard = document.getElementById("chat-bot-messages");
     if (floorBoard) {
@@ -148,7 +150,7 @@ export const ChatBot: React.FC<{ isChatShown: boolean }> = ({
           </VStack>
           <InputGroup px={4} py={3} borderTop="1px" borderColor="blue.500">
             <Input
-              placeholder="質問を入力してください"
+              placeholder={t.enterQuestion}
               autoFocus
               variant="unstyled"
               value={inputMessage}

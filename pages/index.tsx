@@ -13,8 +13,10 @@ import Image from "next/image";
 import { ChatBot } from "../src/components/ChatBot";
 import Footer from "../src/components/Footer";
 import { Header } from "../src/components/Header";
+import { useTranslate } from "../src/hooks/useTranslate";
 
 export default function Home() {
+  const t = useTranslate();
   const [result, setResult] = useState<string>();
   const codeMirrorRef = useRef<HTMLTextAreaElement>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -68,9 +70,35 @@ export default function Home() {
       onClick={closeWithClickOutSideMethod}
     >
       <Head>
-        <title>AI Code Reviewer</title>
-        <meta name="description" content="Automatic code review by AI" />
-        <link rel="icon" href="/ai_white.svg" />
+        <title>{t.title}</title>
+        <meta charSet="utf-8" />
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+        <meta property="og:url" content={process.env.NEXT_PUBLIC_BASE_URL} />
+        <meta name="description" content={t.description} />
+        <meta property="og:title" content={t.title} />
+        <meta property="og:type" content="website" />
+        <meta property="og:description" content={t.description} />
+        <meta property="og:site_name" content={t.title} />
+        <link rel="apple-touch-icon" sizes="180x180" href="/ai_white.svg" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/ai_white.svg" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/ai_white.svg" />
+        <meta name="twitter:site" content="@yui_active" />
+        <meta name="twitter:creator" content="@yui_active" />
+        <meta
+          property="og:image"
+          key="ogImage"
+          content={`${process.env.NEXT_PUBLIC_BASE_URL}/OGP.jpg`}
+        />
+        <meta
+          name="twitter:card"
+          key="twitterCard"
+          content="summary_large_image"
+        />
+        <meta
+          name="twitter:image"
+          key="twitterImage"
+          content={`${process.env.NEXT_PUBLIC_BASE_URL}/OGP.jpg`}
+        />
       </Head>
       <Container
         maxWidth={{ base: "100%", md: "90%", lg: "80%" }}
@@ -114,13 +142,13 @@ export default function Home() {
             p={6}
             onClick={handleCodeCheck}
             isLoading={isLoading}
-            loadingText="レビュー中・・・"
+            loadingText={t.reviewing}
             spinnerPlacement="start"
             fontSize="xl"
             borderEndRadius="md"
             borderTopRadius="none"
           >
-            <Text fontSize="xl">レビューを見る</Text>
+            <Text fontSize="xl">{t.getReview}</Text>
           </Button>
         </Box>
         <Footer />
