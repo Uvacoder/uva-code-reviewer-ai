@@ -162,18 +162,14 @@ export const ChatBot: React.FC<{ isChatShown: boolean }> = ({
                 }
               }}
             />
-            <InputRightElement
-              fontSize="3xl"
-              h="full"
-              children={
-                <Icon
-                  as={RiSendPlane2Fill}
-                  color={isLoading ? "blue.200" : "blue.500"}
-                  cursor={isLoading ? "none" : "pointer"}
-                  onClick={sendToAi}
-                />
-              }
-            />
+            <InputRightElement fontSize="3xl" h="full">
+              <Icon
+                as={RiSendPlane2Fill}
+                color={isLoading ? "blue.200" : "blue.500"}
+                cursor={isLoading ? "none" : "pointer"}
+                onClick={sendToAi}
+              />
+            </InputRightElement>
           </InputGroup>
         </VStack>
       )}
