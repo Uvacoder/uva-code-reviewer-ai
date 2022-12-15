@@ -10,17 +10,21 @@ import axios from "axios";
 import Head from "next/head";
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { ChatBot } from "../src/components/ChatBot";
+import Footer from "../src/components/Footer";
+import { Header } from "../src/components/Header";
 
 export default function Home() {
   const [result, setResult] = useState<string>();
   const codeMirrorRef = useRef<HTMLTextAreaElement>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [codeMirrorInstance, setCodeMirrorInstance] = useState<any>();
+  const [isChatShown, setIsChatShown] = useState<boolean>(false);
 
   const handleCodeCheck = async () => {
     const lines: { text: string }[] = codeMirrorInstance.doc.children[0].lines;
     const text = lines.reduce(
-      (accumulator, currentValue) => accumulator + currentValue.text.trim(),
+      (accumulator, currentValue) => accumulator + currentValue.text,
       ""
     );
     if (!text) {
@@ -51,24 +55,33 @@ export default function Home() {
     instance.setSize("100%", "100%");
   }, []);
 
+  const closeWithClickOutSideMethod = (e: React.MouseEvent) => {
+    if (document.getElementById("chat-content") !== e.target) {
+      setIsChatShown(false);
+    }
+  };
+
   return (
-    <Box bgColor="blue.200">
+    <Box
+      bgColor="blue.200"
+      position="relative"
+      onClick={closeWithClickOutSideMethod}
+    >
       <Head>
-        <title>Code Reviewer</title>
+        <title>AI Code Reviewer</title>
         <meta name="description" content="Automatic code review by AI" />
-        <link rel="icon" href="/icon.svg" />
+        <link rel="icon" href="/ai_white.svg" />
       </Head>
       <Container
         maxWidth={{ base: "100%", md: "90%", lg: "80%" }}
         h="100vh"
         display="flex"
+        py={4}
         flexDirection="column"
-        justifyContent="center"
+        justifyContent="space-between"
         gap={{ base: 2, lg: 4 }}
       >
-        <Text fontSize="4xl" fontWeight="bold">
-          AI Code Reviewer
-        </Text>
+        <Header />
         <Box>
           <Center
             p={6}
@@ -76,12 +89,18 @@ export default function Home() {
             bgColor="Black"
             borderTopRadius="md"
             flexDirection={{ base: "column", md: "row" }}
-            h="70vh"
+            h="60vh"
           >
             <Textarea ref={codeMirrorRef} />
-            <Box w="full" h="full" bgColor="gray.100" p={{ base: 2, md: 8 }}>
+            <Box
+              w="full"
+              h="full"
+              bgColor="gray.100"
+              p={{ base: 2, md: 8 }}
+              overflowY="scroll"
+            >
               {result ? (
-                <Text>{result}</Text>
+                <Text fontSize="md">{result}</Text>
               ) : (
                 <Center w="full" h="full" flexDirection="column">
                   <Image src="/icon.svg" width={300} height={300} alt="icon" />
@@ -92,18 +111,39 @@ export default function Home() {
           <Button
             colorScheme="blue"
             w="full"
-            p={8}
+            p={6}
             onClick={handleCodeCheck}
             isLoading={isLoading}
             loadingText="レビュー中・・・"
             spinnerPlacement="start"
-            fontSize="2xl"
+            fontSize="xl"
             borderEndRadius="md"
             borderTopRadius="none"
           >
-            <Text fontSize="2xl">レビューを見る</Text>
+            <Text fontSize="xl">レビューを見る</Text>
           </Button>
         </Box>
+        <Footer />
+        <Center
+          bgColor="blue.500"
+          position="fixed"
+          bottom={{ base: 4, md: 8 }}
+          right={{ base: 4, md: 8 }}
+          p={4}
+          cursor="pointer"
+          borderRadius="full"
+          border="4px"
+          borderColor="gray.100"
+          boxShadow="md"
+          onClick={(e) => {
+            e.stopPropagation();
+            setIsChatShown((flag) => !flag);
+          }}
+          id="chat-content"
+        >
+          <Image src="/ai_white.svg" alt="ai" width={56} height={56} />
+        </Center>
+        <ChatBot isChatShown={isChatShown} />
       </Container>
     </Box>
   );
