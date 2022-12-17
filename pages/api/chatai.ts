@@ -14,7 +14,6 @@ export default async function handler(
 ) {
   if (req.method !== "POST") {
     res.status(405).json({ result: "Only POST requests allowed" });
-    return;
   }
   if (!req.body?.message) {
     res.status(400).json({ result: "Message is required" });

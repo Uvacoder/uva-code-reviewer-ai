@@ -102,7 +102,7 @@ export default function Home() {
       </Head>
       <Container
         maxWidth={{ base: "100%", md: "90%", lg: "80%" }}
-        h="100vh"
+        minH="100vh"
         display="flex"
         py={4}
         flexDirection="column"
