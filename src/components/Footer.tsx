@@ -22,6 +22,7 @@ const Footer = () => {
         <a
           href="https://www.producthunt.com/posts/ai-code-reviewer?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-ai&#0045;code&#0045;reviewer"
           target="_blank"
+          rel="noreferrer"
         >
           <Image
             src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=371538&theme=light"
