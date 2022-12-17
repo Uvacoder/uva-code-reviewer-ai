@@ -5,6 +5,7 @@ import {
   Button,
   Container,
   Center,
+  Image as ChakraImage,
 } from "@chakra-ui/react";
 import axios from "axios";
 import Head from "next/head";
@@ -131,7 +132,12 @@ export default function Home() {
                 <Text fontSize="md">{result}</Text>
               ) : (
                 <Center w="full" h="full" flexDirection="column">
-                  <Image src="/icon.svg" width={300} height={300} alt="icon" />
+                  <ChakraImage
+                    src="/icon.svg"
+                    w={{ base: 200, md: 250, lg: 300 }}
+                    h={{ base: 200, md: 250, lg: 300 }}
+                    alt="icon"
+                  />
                 </Center>
               )}
             </Box>
