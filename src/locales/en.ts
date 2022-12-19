@@ -6,7 +6,7 @@ export const EnTexts = {
   greeting: "Hello. If you have any questions, please ask.",
   enterQuestion: "Please enter your question",
   statementForReview:
-    "Please review the code below. If you find any problems, please let me know.",
+    "Please review the following code. If there are any problems, please let me know.",
   statementForQuestion: "Please respond to the following sentence.",
   shareText: "Let AI review your code!",
 };
